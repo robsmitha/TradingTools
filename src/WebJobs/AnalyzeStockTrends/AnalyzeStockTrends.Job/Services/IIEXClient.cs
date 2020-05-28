@@ -7,6 +7,6 @@ namespace AnalyzeStockTrends.Job.Services
 {
     public interface IIEXClient
     {
-        Task<T> SendAsync<T>(string function);
+        Task<T> SendAsync<T>(string function, string @params = null);
     }
 }

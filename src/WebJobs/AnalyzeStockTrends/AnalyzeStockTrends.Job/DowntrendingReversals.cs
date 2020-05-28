@@ -1,11 +1,11 @@
 ﻿using Serilog;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AnalyzeStockTrends.Job.Models.Stocks;
 using AnalyzeStockTrends.Job.Services;
-using AnalyzeStockTrends.Job.Utilities;
+using AnalyzeStockTrends.Job.Aggregates.CandleStickPatternAggregate;
+using AnalyzeStockTrends.Job.Extensions;
 
 namespace AnalyzeStockTrends.Job
 {
@@ -23,69 +23,64 @@ namespace AnalyzeStockTrends.Job
         /// <returns></returns>
         public async Task Run(string[] downtrending, string range = "5d")
         {
-            var reversalPatterns = new List<CandleStickPattern>();
+            var patterns = new List<CandleStickPattern>();
             foreach (var symbol in downtrending)
             {
-                var datetimeRange = await _edx.SendAsync<List<StockPrice>>($"stock/{symbol}/chart/{range}");
-
-                var trend = new Stack<CandleStick>();
-
-                for (int i = 0; i < datetimeRange.Count; i++)
+                var prices = await _edx.SendAsync<List<StockPrice>>($"stock/{symbol}/chart/{range}", "includeToday=false");
+                var candles = new LinkedList<StockPrice>();
+                LinkedListNode<StockPrice> head = new LinkedListNode<StockPrice>(prices[0]);
+                candles.AddFirst(head);
+                prices.GetRange(1, prices.Count - 1).ForEach(stock => candles.AddLast(new LinkedListNode<StockPrice>(stock)));
+                var down = new Stack<StockPrice>();
+                var current = head.Next;
+                while (current != null)
                 {
-                    var candle = new CandleStick(datetimeRange[i]);
-
-                    if (candle.CandleStickType == CandleStickTypes.Bearish)
+                    var candleType = current.GetCandleStickType();
+                    if (candleType == CandleStickTypes.RedFilled)
                     {
-                        trend.Push(candle); //add to down trend
+                        down.Push(current.Value);
                     }
-                    else if (candle.CandleStickType == CandleStickTypes.Bullish && trend.Any())
+                    else if (candleType == CandleStickTypes.GreenFilled || candleType == CandleStickTypes.GreenHollow || candleType == CandleStickTypes.RedHollow)
                     {
-                        //check for candle stick reversal patterns
-                        var before = trend.Pop();
+                        if (down.Any())
+                        {
+                            if (current.IsHammer())
+                            {
+                                patterns.Add(new CandleStickPattern(symbol, CandleStickPatterns.Hammer, current.BullishVolume()));
+                                break;
+                            }
 
-                        if (Math.Abs(candle.ChangePercent) < Math.Abs(before.ChangePercent))
-                        {
-                            if (Math.Abs(candle.ChangePercent) < 1)  //TODO: Determine some threshold to determine what is consided a short body (change percent less than?)
+                            if (current.IsInvertedHammer())
                             {
-                                if (candle.IsHammer())
-                                {
-                                    reversalPatterns.Add(new CandleStickPattern(symbol, CandleStickPatterns.Hammer, i, datetimeRange));
-                                    break;
-                                }
-                                else if (candle.IsInvertedHammer())
-                                {
-                                    reversalPatterns.Add(new CandleStickPattern(symbol, CandleStickPatterns.InvertedHammer, i, datetimeRange));
-                                    break;
-                                }
-                                else if (candle.IsMorningStar(before))
-                                {
-                                    reversalPatterns.Add(new CandleStickPattern(symbol, CandleStickPatterns.MorningStar, i, datetimeRange));
-                                    break;
-                                }
+                                patterns.Add(new CandleStickPattern(symbol, CandleStickPatterns.InvertedHammer, current.BullishVolume()));
+                                break;
                             }
-                            else
+
+                            if (current.IsMorningStar())
                             {
-                                if (candle.IsPiercingLine(before))
-                                {
-                                    reversalPatterns.Add(new CandleStickPattern(symbol, CandleStickPatterns.PiercingLine, i, datetimeRange));
-                                    break;
-                                }
+                                patterns.Add(new CandleStickPattern(symbol, CandleStickPatterns.MorningStar, current.BullishVolume()));
+                                break;
                             }
-                        }
-                        else if (Math.Abs(candle.ChangePercent) > Math.Abs(before.ChangePercent))
-                        {
-                            if (candle.IsBullishEngulfing(before))
+
+                            if (current.IsPiercingLine())
                             {
-                                reversalPatterns.Add(new CandleStickPattern(symbol, CandleStickPatterns.BullishEngulfing, i, datetimeRange));
+                                patterns.Add(new CandleStickPattern(symbol, CandleStickPatterns.PiercingLine, current.BullishVolume()));
+                                break;
+                            }
+
+                            if (current.IsBullishEngulfing())
+                            {
+                                patterns.Add(new CandleStickPattern(symbol, CandleStickPatterns.BullishEngulfing, current.BullishVolume()));
                                 break;
                             }
                         }
                     }
+                    current = current.Next;
                 }
             }
 
             Log.Information("Downtrending reversal patterns");
-            foreach (var pattern in reversalPatterns)
+            foreach (var pattern in patterns)
             {
                 Log.Information("{@symbol}\t{@pattern}={@volume}", pattern.Symbol, pattern.Pattern, pattern.Volume);
             }

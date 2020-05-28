@@ -20,22 +20,27 @@ namespace AnalyzeStockTrends.Job.Services
             Token = configuration["Configurations:IEX_Token"];
         }
 
-        private string RequestUri(string endpointPath, string @params = null)
+        private string RequestUri(string endpointPath, string @params)
         {
             var requestUri = new StringBuilder();
             requestUri.Append(BaseUrl);
             requestUri.Append($"/{Version}");
             requestUri.Append($"/{endpointPath}");
             requestUri.Append($"?token={Token}");
+            if(@params != null)
+            {
+                foreach (var kv in @params.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                    requestUri.Append($"&{kv}");
+            }
             return requestUri.ToString();
         }
 
-        public async Task<T> SendAsync<T>(string function)
+        public async Task<T> SendAsync<T>(string function, string @params = null)
         {
             using HttpClient client = new HttpClient();
             try
             {
-                var uri = RequestUri(function);
+                var uri = RequestUri(function, @params);
                 var response = await client.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {

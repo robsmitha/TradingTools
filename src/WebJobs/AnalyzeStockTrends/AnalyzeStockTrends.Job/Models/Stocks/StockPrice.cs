@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AnalyzeStockTrends.Job.Models.Stocks
 {
@@ -71,5 +69,9 @@ namespace AnalyzeStockTrends.Job.Models.Stocks
         /// the stock
         /// </summary>
         public string Symbol { get; set; }
+
+        public decimal LowerShadow => Close ?? 0 - Low ?? 0;
+        public decimal UpperShadow => High ?? 0 - Open ?? 0;
+        public bool HasShortBody => Math.Abs(ChangePercent ?? 0) < 1 && Math.Abs(ChangePercent ?? 0) > 0;
     }
 }

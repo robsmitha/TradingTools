@@ -1,11 +1,9 @@
 ﻿using Serilog;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using AnalyzeStockTrends.Job.Models.Stocks;
 using AnalyzeStockTrends.Job.Services;
-using AnalyzeStockTrends.Job.Utilities;
+using AnalyzeStockTrends.Job.Aggregates.CandleStickPatternAggregate;
 
 namespace AnalyzeStockTrends.Job
 {
@@ -19,20 +17,15 @@ namespace AnalyzeStockTrends.Job
         }
         public async Task Run(string[] uptrending, string range = "5d")
         {
-            var continuationPatterns = new List<CandleStickPattern>();
+            var patterns = new List<CandleStickPattern>();
             foreach (var symbol in uptrending)
             {
-                var datetimeRange = await _edx.SendAsync<List<StockPrice>>($"stock/{symbol}/chart/{range}");
+                var prices = await _edx.SendAsync<List<StockPrice>>($"stock/{symbol}/chart/{range}");
 
-                var trend = new Stack<CandleStick>();
 
-                for (int i = 0; i < datetimeRange.Count; i++)
-                {
-                    var candle = new CandleStick(datetimeRange[i]);
-                }
             }
             Log.Information("Uptrending continuation patterns");
-            foreach (var pattern in continuationPatterns)
+            foreach (var pattern in patterns)
             {
                 Log.Information("{@symbol}\t{@pattern}={@volume}", pattern.Symbol, pattern.Pattern, pattern.Volume);
             }
