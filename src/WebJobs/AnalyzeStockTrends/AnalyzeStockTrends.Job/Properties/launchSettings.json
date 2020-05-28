@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "AnalyzeStockTrends.Job": {
+      "commandName": "Project",
+      "commandLineArgs": "ZM,NFLX,NVDA,CRM,TWLO,DOCU,SPY,MSFT,AAPL,AMZN,CA,QSR,MRNA,DKNG,TWTR,FCN,DIS,NKE,TEAM,CLX ZM,NFLX,NVDA,CRM,TWLO,DOCU,SPY,MSFT,AAPL,AMZN,CA,QSR,MRNA,DKNG,TWTR,FCN,DIS,NKE,TEAM,CLX",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

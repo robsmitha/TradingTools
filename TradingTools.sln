@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2672A42B-F270-4831-9717-2672328354FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebJobs", "WebJobs", "{03B8E66B-1228-44BE-B0E7-3C981A700ED2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AnalyzeStockTrends", "AnalyzeStockTrends", "{CCB6845C-6C42-4112-A87E-5B031B645901}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CurateStockTrends", "CurateStockTrends", "{BA5A7C5F-0315-4DF4-BB34-7B59D870E083}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyzeStockTrends.Job", "src\WebJobs\AnalyzeStockTrends\AnalyzeStockTrends.Job\AnalyzeStockTrends.Job.csproj", "{2CDD7287-2556-46A5-B862-31B568F400DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurateStockTrends.Job", "src\WebJobs\CurateStockTrends\CurateStockTrends.Job\CurateStockTrends.Job.csproj", "{4BF29EDC-7BFE-42C4-B82B-B7C3CA944D3B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2CDD7287-2556-46A5-B862-31B568F400DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CDD7287-2556-46A5-B862-31B568F400DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CDD7287-2556-46A5-B862-31B568F400DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CDD7287-2556-46A5-B862-31B568F400DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BF29EDC-7BFE-42C4-B82B-B7C3CA944D3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BF29EDC-7BFE-42C4-B82B-B7C3CA944D3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BF29EDC-7BFE-42C4-B82B-B7C3CA944D3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BF29EDC-7BFE-42C4-B82B-B7C3CA944D3B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{03B8E66B-1228-44BE-B0E7-3C981A700ED2} = {2672A42B-F270-4831-9717-2672328354FA}
+		{CCB6845C-6C42-4112-A87E-5B031B645901} = {03B8E66B-1228-44BE-B0E7-3C981A700ED2}
+		{BA5A7C5F-0315-4DF4-BB34-7B59D870E083} = {03B8E66B-1228-44BE-B0E7-3C981A700ED2}
+		{2CDD7287-2556-46A5-B862-31B568F400DE} = {CCB6845C-6C42-4112-A87E-5B031B645901}
+		{4BF29EDC-7BFE-42C4-B82B-B7C3CA944D3B} = {BA5A7C5F-0315-4DF4-BB34-7B59D870E083}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {52878FCB-5BD5-4EBA-8D37-17515E4D19B5}
+	EndGlobalSection
+EndGlobal
