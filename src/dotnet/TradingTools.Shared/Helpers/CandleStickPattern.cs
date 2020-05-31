@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TradingTools.Models.Stocks;
 
-namespace AnalyzeStockTrends.Job.Aggregates.CandleStickPatternAggregate
+namespace TradingTools.Shared.Helpers
 {
     public enum CandleStickPatterns
     {
@@ -13,14 +14,16 @@ namespace AnalyzeStockTrends.Job.Aggregates.CandleStickPatternAggregate
     }
     public class CandleStickPattern
     {
-        public CandleStickPattern(string symbol, CandleStickPatterns pattern, decimal volume)
+        public CandleStickPattern(string symbol, CandleStickPatterns pattern, LinkedListNode<StockPrice> node)
         {
             Symbol = symbol;
             Pattern = pattern;
-            Volume = volume;
+            TotalVolume = node?.BullishVolume() ?? 0;
+            StockPrice = node?.Value ?? new StockPrice();
         }
         public string Symbol { get; set; }
-        public decimal Volume { get; set; }
+        public decimal TotalVolume { get; set; }
+        public StockPrice StockPrice { get; set; }
         public CandleStickPatterns Pattern { get; set; }
     }
 }

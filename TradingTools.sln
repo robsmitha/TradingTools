@@ -5,15 +5,15 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2672A42B-F270-4831-9717-2672328354FA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebJobs", "WebJobs", "{03B8E66B-1228-44BE-B0E7-3C981A700ED2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dotnet", "dotnet", "{D0DCB41C-3B44-418D-A57A-1171F97419D3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AnalyzeStockTrends", "AnalyzeStockTrends", "{CCB6845C-6C42-4112-A87E-5B031B645901}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingTools.FunctionApp.WatchLists", "src\dotnet\TradingTools.FunctionApp.WatchLists\TradingTools.FunctionApp.WatchLists.csproj", "{3230E71F-7A56-4184-AEE7-66A59CC57073}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CurateStockTrends", "CurateStockTrends", "{BA5A7C5F-0315-4DF4-BB34-7B59D870E083}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingTools.FunctionApp.TradingPatterns", "src\dotnet\TradingTools.FunctionApp.TradingPatterns\TradingTools.FunctionApp.TradingPatterns.csproj", "{FACC7AF4-A08B-43F6-AC4C-AD8892EF1CAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyzeStockTrends.Job", "src\WebJobs\AnalyzeStockTrends\AnalyzeStockTrends.Job\AnalyzeStockTrends.Job.csproj", "{2CDD7287-2556-46A5-B862-31B568F400DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingTools.Shared", "src\dotnet\TradingTools.Shared\TradingTools.Shared.csproj", "{5628F448-1B3F-4459-B7AE-1DAAABD34186}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurateStockTrends.Job", "src\WebJobs\CurateStockTrends\CurateStockTrends.Job\CurateStockTrends.Job.csproj", "{4BF29EDC-7BFE-42C4-B82B-B7C3CA944D3B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingTools.Models", "src\dotnet\TradingTools.Models\TradingTools.Models.csproj", "{C73D8E19-52FA-4C01-9AEC-7FACFFBA09DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,24 +21,32 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2CDD7287-2556-46A5-B862-31B568F400DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2CDD7287-2556-46A5-B862-31B568F400DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2CDD7287-2556-46A5-B862-31B568F400DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2CDD7287-2556-46A5-B862-31B568F400DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4BF29EDC-7BFE-42C4-B82B-B7C3CA944D3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4BF29EDC-7BFE-42C4-B82B-B7C3CA944D3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4BF29EDC-7BFE-42C4-B82B-B7C3CA944D3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4BF29EDC-7BFE-42C4-B82B-B7C3CA944D3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3230E71F-7A56-4184-AEE7-66A59CC57073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3230E71F-7A56-4184-AEE7-66A59CC57073}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3230E71F-7A56-4184-AEE7-66A59CC57073}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3230E71F-7A56-4184-AEE7-66A59CC57073}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FACC7AF4-A08B-43F6-AC4C-AD8892EF1CAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FACC7AF4-A08B-43F6-AC4C-AD8892EF1CAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FACC7AF4-A08B-43F6-AC4C-AD8892EF1CAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FACC7AF4-A08B-43F6-AC4C-AD8892EF1CAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5628F448-1B3F-4459-B7AE-1DAAABD34186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5628F448-1B3F-4459-B7AE-1DAAABD34186}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5628F448-1B3F-4459-B7AE-1DAAABD34186}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5628F448-1B3F-4459-B7AE-1DAAABD34186}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C73D8E19-52FA-4C01-9AEC-7FACFFBA09DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C73D8E19-52FA-4C01-9AEC-7FACFFBA09DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C73D8E19-52FA-4C01-9AEC-7FACFFBA09DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C73D8E19-52FA-4C01-9AEC-7FACFFBA09DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{03B8E66B-1228-44BE-B0E7-3C981A700ED2} = {2672A42B-F270-4831-9717-2672328354FA}
-		{CCB6845C-6C42-4112-A87E-5B031B645901} = {03B8E66B-1228-44BE-B0E7-3C981A700ED2}
-		{BA5A7C5F-0315-4DF4-BB34-7B59D870E083} = {03B8E66B-1228-44BE-B0E7-3C981A700ED2}
-		{2CDD7287-2556-46A5-B862-31B568F400DE} = {CCB6845C-6C42-4112-A87E-5B031B645901}
-		{4BF29EDC-7BFE-42C4-B82B-B7C3CA944D3B} = {BA5A7C5F-0315-4DF4-BB34-7B59D870E083}
+		{D0DCB41C-3B44-418D-A57A-1171F97419D3} = {2672A42B-F270-4831-9717-2672328354FA}
+		{3230E71F-7A56-4184-AEE7-66A59CC57073} = {D0DCB41C-3B44-418D-A57A-1171F97419D3}
+		{FACC7AF4-A08B-43F6-AC4C-AD8892EF1CAF} = {D0DCB41C-3B44-418D-A57A-1171F97419D3}
+		{5628F448-1B3F-4459-B7AE-1DAAABD34186} = {D0DCB41C-3B44-418D-A57A-1171F97419D3}
+		{C73D8E19-52FA-4C01-9AEC-7FACFFBA09DE} = {D0DCB41C-3B44-418D-A57A-1171F97419D3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {52878FCB-5BD5-4EBA-8D37-17515E4D19B5}

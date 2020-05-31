@@ -1,4 +1,4 @@
-﻿namespace AnalyzeStockTrends.Job.Models.Stocks
+﻿namespace TradingTools.Models.Stocks
 {
     public class Quote
     {

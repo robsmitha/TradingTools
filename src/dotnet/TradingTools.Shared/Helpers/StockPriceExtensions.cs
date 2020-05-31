@@ -1,14 +1,11 @@
-﻿using AnalyzeStockTrends.Job.Aggregates.CandleStickPatternAggregate;
-using AnalyzeStockTrends.Job.Models.Stocks;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using TradingTools.Models.Stocks;
 
-namespace AnalyzeStockTrends.Job.Extensions
+namespace TradingTools.Shared.Helpers
 {
     public static class StockPriceExtensions
     {
-
         /// <summary>
         /// The Hammer is a bullish reversal pattern, which signals that a stock is nearing bottom in a downtrend. 
         /// 
@@ -77,16 +74,15 @@ namespace AnalyzeStockTrends.Job.Extensions
                 if (node.Previous != null && node.Previous.GetCandleStickType() == CandleStickTypes.RedFilled)
                 {
                     //one short-bodied candle (called a doji or a spinning top)
-                    if (Math.Abs(node.Value.ChangePercent ?? 0) < 1)
+                    if (node.Value.HasShortBody)
                     {
                         //The color of the real body of the short candle can be either white or black
-
                         //there is no overlap between its body and that of the black candle before. 
                         if (((candleType == CandleStickTypes.GreenHollow || candleType == CandleStickTypes.GreenHollow) && node.Previous.Value.Close > node.Value.Close)
                             || ((candleType == CandleStickTypes.RedHollow || candleType == CandleStickTypes.RedFilled) && node.Previous.Value.Close > node.Value.Open))
                         {
-                            //succeeding long white one. 
-                            if (node.Next.GetCandleStickType() == CandleStickTypes.RedFilled)
+                            //succeeding long white one 
+                            if (node.Next.GetCandleStickType() == CandleStickTypes.GreenHollow)
                                 return true;
                         }
                     }
@@ -129,7 +125,7 @@ namespace AnalyzeStockTrends.Job.Extensions
         /// </summary>
         /// <param name="before"></param>
         /// <returns></returns>
-        public static bool IsBullishEngulfing(this LinkedListNode<StockPrice> node) //=> High > before.High && Low < before.Low;
+        public static bool IsBullishEngulfing(this LinkedListNode<StockPrice> node)
         {
             if (node == null || node.Previous == null) return false;
 
@@ -145,8 +141,7 @@ namespace AnalyzeStockTrends.Job.Extensions
         /// In other words, they must be followed by an upside price move which can come as a long hollow candlestick or a gap up and be accompanied by high trading volume. 
         /// This confirmation should be observed within three days of the pattern.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="range"></param>
+        /// <param name="head"></param>
         /// <returns></returns>
         public static decimal BullishVolume(this LinkedListNode<StockPrice> head)
         {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AnalyzeStockTrends.Job.Aggregates.CandleStickPatternAggregate
+namespace TradingTools.Shared.Helpers
 {
 
     /// <summary>

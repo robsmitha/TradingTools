@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AnalyzeStockTrends.Job.Models.Stocks
+namespace TradingTools.Models.Stocks
 {
     public class SymbolBalancesheet
     {

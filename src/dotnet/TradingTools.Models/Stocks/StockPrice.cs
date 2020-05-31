@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AnalyzeStockTrends.Job.Models.Stocks
+namespace TradingTools.Models.Stocks
 {
     public class StockPrice
     {
@@ -65,10 +65,6 @@ namespace AnalyzeStockTrends.Job.Models.Stocks
         /// </summary>
         public decimal? ChangeOverTime { get; set; }
 
-        /// <summary>
-        /// the stock
-        /// </summary>
-        public string Symbol { get; set; }
 
         public decimal LowerShadow => Close ?? 0 - Low ?? 0;
         public decimal UpperShadow => High ?? 0 - Open ?? 0;
