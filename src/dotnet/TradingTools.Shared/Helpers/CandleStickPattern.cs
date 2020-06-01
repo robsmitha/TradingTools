@@ -16,12 +16,12 @@ namespace TradingTools.Shared.Helpers
     {
         public CandleStickPattern(string symbol, CandleStickPatterns pattern, LinkedListNode<StockPrice> node)
         {
-            Symbol = symbol;
+            this.symbol = symbol;
             Pattern = pattern;
             TotalVolume = node?.BullishVolume() ?? 0;
             StockPrice = node?.Value ?? new StockPrice();
         }
-        public string Symbol { get; set; }
+        public string symbol { get; set; }
         public decimal TotalVolume { get; set; }
         public StockPrice StockPrice { get; set; }
         public CandleStickPatterns Pattern { get; set; }

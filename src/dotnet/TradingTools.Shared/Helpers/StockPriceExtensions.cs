@@ -148,7 +148,7 @@ namespace TradingTools.Shared.Helpers
             //Before we jump in on the bullish reversal action
             //confirm the upward trend by watching it closely for the next few days. 
             var volume = 0m;
-            var current = head.Next;
+            var current = head?.Next;
             while (current != null)
             {
                 var candleType = current.GetCandleStickType();
