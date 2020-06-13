@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace TradingTools.Shared.Services
 {
@@ -44,7 +44,7 @@ namespace TradingTools.Shared.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var result = response.Content.ReadAsStringAsync().Result;
-                    return JsonSerializer.Deserialize<T>(result, options: new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    return JsonConvert.DeserializeObject<T>(result);
                 }
 
                 return default;

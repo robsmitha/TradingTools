@@ -143,7 +143,7 @@ namespace TradingTools.Shared.Helpers
         /// </summary>
         /// <param name="head"></param>
         /// <returns></returns>
-        public static decimal BullishVolume(this LinkedListNode<StockPrice> head)
+        public static decimal SubsequentVolume(this LinkedListNode<StockPrice> head)
         {
             //Before we jump in on the bullish reversal action
             //confirm the upward trend by watching it closely for the next few days. 
