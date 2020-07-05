@@ -2,10 +2,10 @@ import { get } from './api.service'
 
 const endpoint = process.env.VUE_APP_ENDPOINT_TRADINGPATTERNS
 
-export const tradingPattternsService = {
-    getTradingPattterns
+export const tradingPatternsService = {
+    getTradingPatterns
 };
 
-function getTradingPattterns(date) {
-    return get(`${endpoint}/GetTradingPattterns/${date ? date : new Date().toString()}`)
+function getTradingPatterns(date) {
+    return get(`${endpoint}/GetTradingPatterns/${date ? date : new Date().toString()}`)
 }

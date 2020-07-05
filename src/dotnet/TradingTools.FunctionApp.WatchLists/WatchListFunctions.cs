@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -41,7 +42,12 @@ namespace TradingTools.FunctionApp.WatchLists
             if(symbols == null)
                 return new StatusCodeResult(204);   //no content, for the user id
 
-            return await Task.FromResult(new OkObjectResult(symbols));
+            var result = symbols.Select(s => new
+            {
+                s.Symbol
+            });
+
+            return await Task.FromResult(new OkObjectResult(result));
         }
 
         [FunctionName("AddSymbolToWatchList")]

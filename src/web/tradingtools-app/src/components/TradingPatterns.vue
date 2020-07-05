@@ -1,13 +1,16 @@
 
 <template>
     <div>
+    <h1 class="font-weight-light mb-0">Chart Patterns</h1>
+    <small class="d-block pb-2 mb-3">These trading patterns are programatically analyzed and posted on an automatic schedule.</small>
+    
     <v-skeleton-loader
         ref="skeleton"
         :boilerplate="boilerplate"
         :type="type"
         :tile="tile"
         class="mx-auto"
-        :loading="loading"
+        :loading="patterns === null"
         :transition="transition"
         >
             <v-data-table
@@ -16,7 +19,6 @@
                 :items-per-page="15"
                 class="elevation-1"
                 :custom-sort="customSort"
-                :single-expand="singleExpand"
                 :expanded.sync="expanded"
                 item-key="id"
                 show-expand
@@ -58,14 +60,11 @@
 </template>
 
 <script>
-import { tradingPattternsService } from "../services/tradingPatterns.services";
-  export default {
+import { mapState } from 'vuex'
+export default {
     name: 'TradingPatterns',
     data: () => ({
         expanded: [],
-        singleExpand: false,
-        loading: true,
-        success: false,
         headers: [
             { text: 'Symbol', align: 'start', value: 'symbol', },
             { text: 'Pattern', value: 'pattern' },
@@ -74,19 +73,20 @@ import { tradingPattternsService } from "../services/tradingPatterns.services";
             { text: 'Change Percent', value: 'changePercent' },
             { text: '', value: 'data-table-expand' },     
         ],
-        patterns: [],
         boilerplate: false,
         tile: false,
         type: 'table',
         types: [],
         transition: 'scale-transition'
     }),
-    async mounted() { 
-        const data = await tradingPattternsService.getTradingPattterns()
-        this.loading = false
-        this.patterns = data ? data : []
-        this.success = data !== null
-     },
+    computed: {
+      ...mapState({
+        patterns: state => state.tradingPatterns.patterns
+      })
+    },
+    created () {
+      this.$store.dispatch('tradingPatterns/getTradingPatterns')
+    },
     methods: {
         customSort: function(items, index, isDesc) {
             items.sort((a, b) => {
@@ -120,5 +120,5 @@ import { tradingPattternsService } from "../services/tradingPatterns.services";
             return items;
         }
     }
-  }
+}
 </script>

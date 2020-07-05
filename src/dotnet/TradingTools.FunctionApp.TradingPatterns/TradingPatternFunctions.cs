@@ -75,9 +75,9 @@ namespace TradingTools.FunctionApp.TradingPatterns
             }
         }
 
-        [FunctionName("GetTradingPattterns")]
-        public static async Task<IActionResult> GetTradingPattterns(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "GetTradingPattterns/{date}")] HttpRequest req,
+        [FunctionName("GetTradingPatterns")]
+        public static async Task<IActionResult> GetTradingPatterns(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "GetTradingPatterns/{date}")] HttpRequest req,
             [CosmosDB(CosmosDbConstants.DatabaseName, CosmosDbConstants.TradingPatterns,
             ConnectionStringSetting = CosmosDbConstants.ConnectionStringName,
             SqlQuery ="SELECT * FROM c ORDER BY c._ts DESC")] IEnumerable<dynamic> patterns,
