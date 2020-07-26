@@ -1,19 +1,35 @@
 
 import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Home from './../components/Home';
-import WatchList from './../components/WatchList';
-import TradingPatterns from './../components/TradingPatterns';
+import VueRouter from 'vue-router'
+import Home from './../components/home/Home'
+import Dashboard from './../components/dashboard/Dashboard'
+import Stock from './../components/stock/Stock'
+import Patterns from './../components/patterns/Patterns'
+import Tweets from './../components/tweets/Tweets'
+import goTo from 'vuetify/es5/services/goto'
 
 
 Vue.use(VueRouter);
 
 const routes = [
     { path: '/', component: Home },
-    { path: '/watch-list', component: WatchList },
-    { path: '/trading-patterns', component: TradingPatterns }
+    { path: '/dashboard', component: Dashboard },
+    { path: '/stock/:symbol', component: Stock },
+    { path: '/patterns', component: Patterns },
+    { path: '/tweets', component: Tweets }
   ]
   
 export default new VueRouter({
-    routes
+    routes,
+    scrollBehavior: (to, from, savedPosition) => {
+      let scrollTo = 0
+  
+      if (to.hash) {
+        scrollTo = to.hash
+      } else if (savedPosition) {
+        scrollTo = savedPosition.y
+      }
+  
+      return goTo(scrollTo)
+    },
 })

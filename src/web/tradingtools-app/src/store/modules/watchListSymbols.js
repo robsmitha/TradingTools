@@ -1,7 +1,11 @@
-import { watchListSymbolsSerivce } from './../../services/watchListSymbols.service'
+import { watchListSymbolsSerivce } from './../../api/watchListSymbols'
 
 const state = () => ({
-    symbols: []
+    symbols: {
+        loading: true,
+        success: false,
+        data: null
+    }
 })
 
 const getters = {
@@ -9,17 +13,19 @@ const getters = {
 }
 
 const actions = {
-    getWatchListSymbols({ commit }) {
-        watchListSymbolsSerivce.getWatchListSymbols()
-        .then(symbols => {
-            commit('setSymbols', symbols)
-        })
+    async getWatchListSymbols({ commit }) {
+        const symbols = await watchListSymbolsSerivce.getWatchListSymbols()
+        commit('setSymbols', symbols)
     }
 }
 
 const mutations = {
     setSymbols(state, symbols){
-        state.symbols = symbols
+        state.symbols = {
+            loading: false,
+            success: symbols !== null,
+            data: symbols
+        }
     }
 }
 

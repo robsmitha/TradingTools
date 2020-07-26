@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,11 +27,7 @@ namespace TradingTools.Shared.Services
             requestUri.Append($"/{Version}");
             requestUri.Append($"/{endpoint}");
             requestUri.Append($"?token={Token}");
-
-            if (@params != null)
-                foreach (var k in @params.Keys)
-                    requestUri.Append($"&{k}={@params[k]}");
-
+            @params.Keys.ToList().ForEach(k => requestUri.Append($"&{k}={@params[k]}"));
             return requestUri.ToString();
         }
 

@@ -1,28 +1,34 @@
 
 <template>
-    <div>
-    <h1 class="font-weight-light mb-0">Chart Patterns</h1>
-    <small class="d-block pb-2 mb-3">These trading patterns are programatically analyzed and posted on an automatic schedule.</small>
-    
-    <v-skeleton-loader
-        ref="skeleton"
-        :boilerplate="boilerplate"
-        :type="type"
-        :tile="tile"
-        class="mx-auto"
-        :loading="patterns === null"
-        :transition="transition"
+    <v-container
+    fluid>
+        <h1 class="font-weight-light mb-0">Chart Patterns</h1>
+        <small class="d-block pb-2 mb-3">These trading patterns are programatically analyzed and posted on an automatic schedule.</small>
+        
+        <v-skeleton-loader
+            ref="skeleton"
+            :boilerplate="boilerplate"
+            :type="type"
+            :tile="tile"
+            class="mx-auto"
+            v-if="patterns.loading"
+            :transition="transition"
         >
-            <v-data-table
-                :headers="headers"
-                :items="patterns"
-                :items-per-page="15"
-                class="elevation-1"
-                :custom-sort="customSort"
-                :expanded.sync="expanded"
-                item-key="id"
-                show-expand
-            >
+        </v-skeleton-loader>
+        <ErrorMessage 
+        v-else-if="!patterns.success" 
+        message="Could not load patterns" />
+        <v-data-table
+            v-else
+            :headers="headers"
+            :items="patterns.data"
+            :items-per-page="15"
+            class="elevation-1"
+            :custom-sort="customSort"
+            :expanded.sync="expanded"
+            item-key="id"
+            show-expand
+        >
             <template v-slot:expanded-item="{ headers, item }">
                 <td :colspan="headers.length">
                     <v-row>
@@ -54,15 +60,17 @@
                     </v-row>
                 </td>
             </template>
-            </v-data-table>
-        </v-skeleton-loader>
-    </div>
+        </v-data-table>
+    </v-container>
 </template>
 
 <script>
+import ErrorMessage from "./../_helpers/ErrorMessage";
 import { mapState } from 'vuex'
 export default {
-    name: 'TradingPatterns',
+    components: {
+        ErrorMessage
+    },
     data: () => ({
         expanded: [],
         headers: [
