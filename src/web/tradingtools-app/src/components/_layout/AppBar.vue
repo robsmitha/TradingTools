@@ -114,7 +114,7 @@
             <v-list dense>
                 <v-list-item>
                 <v-list-item-content>
-                    <v-list-item-title>Watch List</v-list-item-title>
+                    <v-list-item-title>Watching</v-list-item-title>
                 </v-list-item-content>
                 </v-list-item>
                 <div 

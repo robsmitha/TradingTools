@@ -38,6 +38,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "tradingtools-app", "src\web
 		SlnRelativePath = "src\web\tradingtools-app\"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingTools.FunctionApp.TwitterAnalysis", "src\dotnet\TradingTools.FunctionApp.TwitterAnalysis\TradingTools.FunctionApp.TwitterAnalysis.csproj", "{BB3C3383-F878-4D5B-B45E-B20B279F2883}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{52DDD33D-5F2E-449A-B4AD-0C1510F0443C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{52DDD33D-5F2E-449A-B4AD-0C1510F0443C}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{52DDD33D-5F2E-449A-B4AD-0C1510F0443C}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{BB3C3383-F878-4D5B-B45E-B20B279F2883}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB3C3383-F878-4D5B-B45E-B20B279F2883}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB3C3383-F878-4D5B-B45E-B20B279F2883}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB3C3383-F878-4D5B-B45E-B20B279F2883}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +81,7 @@ Global
 		{C73D8E19-52FA-4C01-9AEC-7FACFFBA09DE} = {D0DCB41C-3B44-418D-A57A-1171F97419D3}
 		{443D9960-ED4C-4FDB-8499-352573BF3582} = {2672A42B-F270-4831-9717-2672328354FA}
 		{52DDD33D-5F2E-449A-B4AD-0C1510F0443C} = {443D9960-ED4C-4FDB-8499-352573BF3582}
+		{BB3C3383-F878-4D5B-B45E-B20B279F2883} = {D0DCB41C-3B44-418D-A57A-1171F97419D3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {52878FCB-5BD5-4EBA-8D37-17515E4D19B5}

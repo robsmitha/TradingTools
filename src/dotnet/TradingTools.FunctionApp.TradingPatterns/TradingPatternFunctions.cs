@@ -135,5 +135,17 @@ namespace TradingTools.FunctionApp.TradingPatterns
                 log.LogInformation("First document Id " + input[0].Id);
             }
         }
+
+        [FunctionName("GetQuote")]
+        public static async Task<IActionResult> GetQuote(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "GetQuote/{symbol}")] HttpRequest req,
+            ILogger log,
+            string symbol)
+        {
+            log.LogInformation($"Request for ${symbol}");
+            var quote = iex.SendAsync<StockPrice>(endpoint: $"stock/{symbol}/quote").Result;
+            var result = quote;
+            return await Task.FromResult(new OkObjectResult(result));
+        }
     }
 }

@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace TradingTools.Shared.Services
 {
-    public class IEXClient
+    public class TwitterClient
     {
         static string BaseUrl { get; set; }
         static string Version { get; set; }
         static string Token { get; set; }
-        public IEXClient(string baseUrl, string version, string token) 
+        public TwitterClient(string baseUrl, string version, string token)
         {
             BaseUrl = baseUrl;
             Version = version;
@@ -26,8 +27,8 @@ namespace TradingTools.Shared.Services
             requestUri.Append(BaseUrl);
             requestUri.Append($"/{Version}");
             requestUri.Append($"/{endpoint}");
-            requestUri.Append($"?token={Token}");
-            @params?.Keys.ToList().ForEach(k => requestUri.Append($"&{k}={@params[k]}"));
+            requestUri.Append("?");
+            @params.Keys.ToList().ForEach(k => requestUri.Append($"{k}={@params[k]}&"));
             return requestUri.ToString();
         }
 
@@ -37,6 +38,7 @@ namespace TradingTools.Shared.Services
             try
             {
                 var uri = RequestUri(endpoint, @params);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var response = await client.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {

@@ -5,6 +5,11 @@ const state = () => ({
         loading: true,
         success: false,
         data: null
+    },
+    quote: {
+        loading: true,
+        success: false,
+        data: null
     }
 })
 
@@ -14,17 +19,28 @@ const getters = {
 
 const actions = {
     async getTradingPatterns({ commit }) {
-        const patterns = await tradingPatternsService.getTradingPatterns()
-        commit('setPatterns', patterns)
+        const data = await tradingPatternsService.getTradingPatterns()
+        commit('setPatterns', data)
+    },
+    async getQuote({ commit }, args) {
+        const data = await tradingPatternsService.getQuote(args.symbol)
+        commit('setQuote', data)
     }
 }
 
 const mutations = {
-    setPatterns(state, patterns){
+    setPatterns(state, data){
         state.patterns = {
             loading: false,
-            success: patterns !== null,
-            data: patterns
+            success: data !== null,
+            data: data
+        }
+    },
+    setQuote(state, data){
+        state.quote = {
+            loading: false,
+            success: data !== null,
+            data: data
         }
     }
 }
