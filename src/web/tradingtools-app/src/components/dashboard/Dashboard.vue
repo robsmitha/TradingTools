@@ -71,7 +71,7 @@ export default {
       },
       tweets(val){
         if(val && val.success){
-          this.items[1].content = val.data.filter(t => t.text.toLowerCase().indexOf('trade idea') !== -1).length
+          this.items[1].content = val.data.length
         }
       }
     },

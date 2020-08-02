@@ -6,6 +6,7 @@ import Dashboard from './../components/dashboard/Dashboard'
 import Stock from './../components/stock/Stock'
 import Patterns from './../components/patterns/Patterns'
 import Tweets from './../components/tweets/Tweets'
+import Tweet from './../components/tweets/Tweet'
 import goTo from 'vuetify/es5/services/goto'
 
 
@@ -16,7 +17,8 @@ const routes = [
     { path: '/dashboard', component: Dashboard },
     { path: '/stock/:symbol', component: Stock },
     { path: '/patterns', component: Patterns },
-    { path: '/tweets', component: Tweets }
+    { path: '/tweets/:name?', component: Tweets },
+    { path: '/tweet/:name/:id', component: Tweet },
   ]
   
 export default new VueRouter({
